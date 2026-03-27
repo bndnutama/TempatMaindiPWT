@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday AYAAAA!</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Pacifico&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+  <style>
+    :root {
+      --primary: #ff6b81;
+      --secondary: #f06292;
+      --bg-gradient: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+    }
+
+    * { margin:0; padding:0; box-sizing:border-box; font-family: 'Poppins', sans-serif; }
+    
+    body { 
+      background: var(--bg-gradient);
+      color: #333;
+      overflow: hidden;
+      transition: 0.5s;
+    }
+
+    /* --- LOGIN SECTION --- */
+    #login {
+      height: 100vh; display: flex; flex-direction: column; 
+      justify-content: center; align-items: center;
+      text-align: center; background: var(--bg-gradient);
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 30px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+      width: 90%;
+      max-width: 350px;
+    }
+
+    h2 { font-family: 'Pacifico', cursive; color: #fff; text-shadow: 2px 2px 4px rgba(0,0,0,0.1); margin-bottom: 20px; font-size: 1.5rem; }
+
+    #display {
+      font-size: 24px; font-weight: 600; color: #fff;
+      background: rgba(0,0,0,0.1); padding: 10px 20px;
+      border-radius: 50px; margin-bottom: 20px; letter-spacing: 3px;
+    }
+
+    .keypad {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+    }
+
+    .keypad button {
+      height: 60px; border: none; border-radius: 50%;
+      cursor: pointer; background: white; color: var(--primary);
+      font-size: 20px; font-weight: bold; transition: 0.3s;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .keypad button:active { transform: scale(0.9); background: var(--primary); color: white; }
+    .btn-check { background: #4cd137 !important; color: white !important; }
+
+    /* --- MAIN CONTENT --- */
+    #main { 
+      display: none; height: 100vh; overflow-y: scroll; 
+      scroll-snap-type: y mandatory; scroll-behavior: smooth;
+    }
+
+    .slide {
+      height: 100vh; display: flex; flex-direction: column; 
+      justify-content: center; align-items: center;
+      scroll-snap-align: start; padding: 40px; text-align: center;
+      position: relative;
+    }
+
+    .slide:nth-child(1) { background: #fff5f5; }
+    .slide:nth-child(2) { background: #f0f4ff; }
+    .slide:nth-child(3) { background: #fffaf0; }
+
+    .slide h1 { font-family: 'Pacifico', cursive; font-size: 2.2rem; color: var(--primary); margin-bottom: 15px; }
+    .slide p { font-size: 1rem; max-width: 500px; line-height: 1.6; }
+
+    .gallery { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 20px; }
+    .gallery img { 
+      width: 100px; height: 100px; object-fit: cover; 
+      border-radius: 12px; border: 4px solid white;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    video { 
+      width: 100%; max-width: 320px; border-radius: 15px; 
+      margin-top: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+
+    textarea { 
+      width: 100%; max-width: 350px; height: 120px; border-radius: 15px; 
+      padding: 15px; border: 2px solid #ddd; margin: 20px 0;
+      resize: none; outline: none; transition: 0.3s;
+    }
+    textarea:focus { border-color: var(--primary); box-shadow: 0 0 10px rgba(255,107,129,0.2); }
+
+    .btn-send {
+      padding: 12px 35px; border: none; border-radius: 50px;
+      background: var(--primary); color: white; font-weight: 600;
+      cursor: pointer; transition: 0.3s; box-shadow: 0 4px 15px rgba(255,107,129,0.3);
+    }
+    .btn-send:hover { transform: translateY(-2px); background: var(--secondary); }
+
+    #notif { margin-top: 15px; color: #e67e22; font-weight: 600; font-size: 0.9rem; }
+
+    .decor { position: absolute; font-size: 30px; opacity: 0.3; z-index: 0; pointer-events: none; }
+  </style>
+</head>
+<body>
+
+  <div id="login">
+    <div class="glass-card animate__animated animate__zoomIn">
+      <h2>Hai Sayangku Kuni Inas Maulaya!</h2>
+      <p style="color: white; font-size: 0.9rem; margin-bottom: 15px;">Masukin Passwordnya ya! I Know You Know</p>
+      <div id="display">________</div>
+
+      <div class="keypad">
+        <button onclick="addNumber(1)">1</button>
+        <button onclick="addNumber(2)">2</button>
+        <button onclick="addNumber(3)">3</button>
+        <button onclick="addNumber(4)">4</button>
+        <button onclick="addNumber(5)">5</button>
+        <button onclick="addNumber(6)">6</button>
+        <button onclick="addNumber(7)">7</button>
+        <button onclick="addNumber(8)">8</button>
+        <button onclick="addNumber(9)">9</button>
+        <button onclick="clearInput()" style="background:#eee">C</button>
+        <button onclick="addNumber(0)">0</button>
+        <button onclick="checkPassword()" class="btn-check">✔</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="main">
+    <div class="slide">
+      <div class="decor" style="top:10%; left:10%;">🎈</div>
+      <div class="decor" style="bottom:15%; right:15%;">✨</div>
+      <h1 class="animate__animated animate__heartBeat">Happy Birthday!</h1>
+      <p class="animate__animated animate__fadeInUp">
+        Selamat bertambah usia AYAA! kamu luar biasa! 💖<br>
+        Semoga hari-hari kamu selalu bahagia, sehat selalu, <br>
+        semua impianmu dikabulkan, dan tetap sayang sama AKU!!!. Maaf mengucapkan secara jauh, semoga cintaku masih sampai ke Kamu yaaaaa. <br>
+        I LOVE YOU
+      </p>
+      <small style="margin-top: 50px; color: #aaa; animation: bounce 2s infinite;">⬇ Scroll ke bawah pelan-pelan ya ⬇</small>
+    </div>
+
+    <div class="slide">
+      <h2>Karena Online, Nih Biar Kamu Makin Sayang</h2>
+      <div class="gallery">
+        <img src="https://drive.google.com/file/d/1LmaomHIPvLdZ4y9AdTxfyCJj3aU_3nh9/view?usp=drive_link" alt="Memory 1">
+        <img src="foto2.jpg" alt="Memory 2">
+        <img src="foto3.jpg" alt="Memory 3">
+      </div>
+      <video src="video.mp4" controls poster="thumb.jpg"></video>
+    </div>
+
+    <div class="slide">
+      <h2>Aloo Saatnya Make a Wish </h2>
+      <textarea id="wishInput" placeholder="Kirim dong doa dan harapan Ayaa di sini..."></textarea>
+      <button class="btn-send" id="submitBtn" onclick="kirimWish()">Kirim Doa AYA!</button>
+      <p id="notif"></p>
+    </div>
+  </div>
+
+  <script>
+    // --- KONFIGURASI ---
+    const correctPassword = "28032005";
+    // MASUKKAN URL GOOGLE APPS SCRIPT KAMU DI SINI
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyh_2yjDJ01lE-AYr_0fCR4yczKdYzU0EgxEF1e0GQuB2oyTdxsiyzSVMUiEJorW57o/exec'; 
+
+    let inputPassword = "";
+
+    function addNumber(num){
+      if(inputPassword.length < 8){
+        inputPassword += num;
+        updateDisplay();
+      }
+    }
+
+    function clearInput(){
+      inputPassword = "";
+      updateDisplay();
+    }
+
+    function updateDisplay(){
+      let display = inputPassword;
+      let placeholder = "________";
+      document.getElementById("display").innerText = display + placeholder.substring(display.length);
+    }
+
+    function checkPassword(){
+      if(inputPassword === correctPassword){
+        confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+        document.getElementById("login").classList.add("animate__animated", "animate__fadeOut");
+        setTimeout(() => {
+          document.getElementById("login").style.display = "none";
+          document.getElementById("main").style.display = "block";
+          document.body.style.overflow = "auto";
+        }, 500);
+      } else {
+        alert("Bukan ituu!!. Coba inget-inget lagi hari apa ini!");
+        clearInput();
+      }
+    }
+
+    async function kirimWish(){
+      const wish = document.getElementById("wishInput").value;
+      const notif = document.getElementById("notif");
+      const btn = document.getElementById("submitBtn");
+
+      if(wish.trim() === "") {
+        alert("Tulis dulu dong harapannya..");
+        return;
+      }
+      
+      // Visual Feedback
+      btn.disabled = true;
+      btn.innerText = "Mengirim...";
+      notif.innerText = "Sedang menerbangkan doamu ke angkasa... ";
+
+      try {
+        // Proses kirim ke Google Sheets secara diam-diam
+        await fetch(scriptURL, { 
+          method: 'POST', 
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: `wish=${encodeURIComponent(wish)}`
+        });
+
+        // Efek Sukses
+        confetti({
+          particleCount: 100,
+          velocity: 30,
+          spread: 360,
+          colors: ['#ff6b81', '#ffffff']
+        });
+
+        notif.style.color = "#2ecc71";
+        notif.innerText = "Aamiin! Doamu sudah tersimpan, semoga dikabulkan ya sayang! ";
+        document.getElementById("wishInput").value = "";
+        btn.innerText = "Terkirim! ✨";
+
+      } catch (error) {
+        console.error('Error!', error.message);
+        notif.style.color = "#e74c3c";
+        notif.innerText = "Waduh, ngeleeggggg ahahahah";
+        btn.disabled = false;
+        btn.innerText = "Coba Kirim Lagi";
+      }
+    }
+  </script>
+
+</body>
+</html>
